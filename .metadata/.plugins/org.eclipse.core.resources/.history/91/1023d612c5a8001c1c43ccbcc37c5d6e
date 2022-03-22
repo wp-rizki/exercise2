@@ -1,0 +1,11 @@
+package java;
+
+public class seleFunction {
+	public static void main(String[] args) throws InterruptedException {
+        WebDriver driver = new ChromeDriver();
+
+        //open ebay
+        driver.get("https://ebay.com");
+        driver.manage().window().maximize();
+        Thread.sleep(2000);
+}

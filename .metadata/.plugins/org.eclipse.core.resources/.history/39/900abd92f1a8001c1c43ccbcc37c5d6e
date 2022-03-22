@@ -1,0 +1,69 @@
+package test.function;
+
+import java.net.MalformedURLException;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class seleFunction {
+	public static WebDriver driver=null;
+    public static WebDriverWait waitVar=null;
+    public static String baseURL="https://gist.github.com/rizkifirmansyah";
+    public static String username="rizkifirmansyah";
+    public static String password="diujung0";
+    
+	public static void main(String[] args) throws MalformedURLException, InterruptedException {
+		driver =  new ChromeDriver();
+				
+		driver.manage().window().maximize();
+        driver.get(baseURL);
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+        login();
+        Thread.sleep(2000);
+        clickAdd();
+        CreateGist();
+	}
+	
+	public static void tearDown(){
+        driver.quit();
+    }
+	
+	public static void login() throws InterruptedException {
+		driver.findElement(By.xpath("//a[contains(text(),'Sign in')]")).click();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		//input username
+		driver.findElement(By.xpath("//input[@id='login_field']")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//input[@id='login_field']")).sendKeys(username);
+		Thread.sleep(2000);
+		//ipunt password
+		driver.findElement(By.xpath("//div[@id='login']/div[3]/form/div/input[@id='password']")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//div[@id='login']/div[3]/form/div/input[@id='password']")).sendKeys(password);
+		Thread.sleep(1000);
+		
+		driver.findElement(By.xpath("//input[@name='commit']")).click();
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	}
+	
+	public static void clickAdd(){
+		driver.findElement(By.cssSelector("svg.octicon.octicon-plus.d-none.d-md-inline-block > path")).click();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.findElement(By.name("All gists")).isDisplayed();
+	}
+	
+	public static void CreateGist(){
+		driver.findElement(By.xpath("//*[@id=\"gists\"]/div[2]/file-attachment/div/div[1]/div[1]/input[@name='gist[contents][][name]']")).click();
+		driver.findElement(By.xpath("//*[@id=\\\"gists\\\"]/div[2]/file-attachment/div/div[1]/div[1]/input[@name='gist[contents][][name]']")).clear();
+		driver.findElement(By.xpath("//*[@id=\\\"gists\\\"]/div[2]/file-attachment/div/div[1]/div[1]/input[@name='gist[contents][][name]']")).sendKeys("Gist Name");
+		driver.findElement(By.xpath("id(\"code-editor\")/div[1]/pre[@class=\"CodeMirror-line\"][count(. | //pre[@class = ' CodeMirror-line ' and @role = 'presentation']) = count(//pre[@class = ' CodeMirror-line ' and @role = 'presentation'])]")).click();
+		driver.findElement(By.xpath("//div[@id='code-editor']")).sendKeys("test description");
+		driver.findElement(By.name("gist[public]")).click();
+	}
+	
+	
+}

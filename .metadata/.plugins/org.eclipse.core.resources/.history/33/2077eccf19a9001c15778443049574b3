@@ -1,0 +1,21 @@
+package stepDef.java;
+
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.When;
+import test.function.seleFunction;
+import cucumber.api.java.en.Then;
+
+import java.net.MalformedURLException;
+
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.But;
+
+public class stepDef {
+	seleFunction sf = new seleFunction();
+	
+	@Given ("^User Open Google$")
+	public void openGoogle() throws MalformedURLException, InterruptedException{
+	
+		sf.createServer();
+	}
+}

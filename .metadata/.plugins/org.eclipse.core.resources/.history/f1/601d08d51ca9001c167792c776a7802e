@@ -1,0 +1,19 @@
+package test.java.stepDef.java;
+
+import io.cucumber.java.en.Given.Givens;
+
+public class stepDef {
+	seleFunction sf = new seleFunction();
+	@Givens("^you are in Given annotation$")
+	public void given() throws Throwable {
+
+		
+		@Given ("^User Open Google$")
+		public void openGoogle() throws MalformedURLException, InterruptedException{
+		
+			sf.createServer();
+		}
+
+	}
+
+}

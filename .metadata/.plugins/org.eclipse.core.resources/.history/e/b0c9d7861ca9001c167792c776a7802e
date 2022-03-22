@@ -1,0 +1,10 @@
+package test.java.stepDef.java;
+
+import io.cucumber.java.en.Given.Givens;
+
+public class stepDef {
+  @Givens("^you are in Given annotation$")
+  public void given() throws Throwable {
+  }
+
+}

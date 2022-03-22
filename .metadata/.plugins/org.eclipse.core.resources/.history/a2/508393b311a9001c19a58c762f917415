@@ -1,0 +1,15 @@
+package test.step;
+
+import java.net.MalformedURLException;
+
+import test.function.seleFunction;
+
+public class stepDef {
+	seleFunction sf = new seleFunction();
+	
+	@Given ("^user openGoogle$")
+	public void openGoogle() throws MalformedURLException, InterruptedException{
+	
+	sf.createServer();
+	}
+}

@@ -1,0 +1,3 @@
+Feature : As User creating a end-to-end (e2e) tests for creating a gist
+Scenario: As a user, I want to create a public gist
+	Given User Open Google

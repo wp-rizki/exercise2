@@ -1,0 +1,78 @@
+package test.function;
+
+import java.net.MalformedURLException;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class seleFunction {
+	public static WebDriver driver=null;
+    public static WebDriverWait waitVar=null;
+    public static String baseURL="https://gist.github.com/rizkifirmansyah";
+    public static String username="rizkifirmansyah";
+    public static String password="diujung0";
+    
+	public static void main(String[] args) throws MalformedURLException, InterruptedException {
+		driver =  new ChromeDriver();
+				
+		driver.manage().window().maximize();
+        driver.get(baseURL);
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+        login();
+        Thread.sleep(2000);
+        clickAdd();
+        CreateGist();
+	}
+	
+	public static void tearDown(){
+        driver.quit();
+    }
+	
+	public static void login() throws InterruptedException {
+		driver.findElement(By.xpath("//a[contains(text(),'Sign in')]")).click();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		//input username
+		driver.findElement(By.xpath("//input[@id='login_field']")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//input[@id='login_field']")).sendKeys(username);
+		Thread.sleep(2000);
+		//ipunt password
+		driver.findElement(By.xpath("//div[@id='login']/div[3]/form/div/input[@id='password']")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//div[@id='login']/div[3]/form/div/input[@id='password']")).sendKeys(password);
+		Thread.sleep(1000);
+		
+		driver.findElement(By.xpath("//input[@name='commit']")).click();
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	}
+	
+	public static void clickAdd(){
+		driver.findElement(By.cssSelector("svg.octicon.octicon-plus.d-none.d-md-inline-block > path")).click();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+	}
+	
+	public static void CreateGist() throws InterruptedException{
+		driver.findElement(By.name("gist[contents][][name]")).click();
+		driver.findElement(By.name("gist[contents][][name]")).sendKeys("Gist Title");
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector("#code-editor")).click();
+		driver.findElement(By.cssSelector("#code-editor")).sendKeys("test description");
+		Thread.sleep(1000);
+		
+		//scroll
+		WebElement element1 = driver.findElement(By.name("gist[contents][][name]"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element1);
+        Thread.sleep(1500);
+		
+		driver.findElement(By.xpath("//form[@id='new_gist']/div/div[2]/div/details/summary[summary[@class = 'select-menu-button btn-primary btn BtnGroup-item float-none' and @role = 'button']]")).click();
+		driver.findElement(By.xpath("//form[@id='new_gist']/div/div[2]/div/details/details-menu/label[2]/div/span[@class='select-menu-item-heading' and (text() = 'Create public gist')]")).click();
+	}
+	
+	
+}

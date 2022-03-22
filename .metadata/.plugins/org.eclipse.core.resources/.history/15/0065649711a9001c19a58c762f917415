@@ -1,0 +1,14 @@
+package test.step;
+
+import test.function.seleFunction;
+
+public class stepDef {
+	seleFunction sf = new seleFunction();
+	
+	@Given ("^user access gist$")
+	public void user_access_gists () throws MalformedURLException,InterruptedException{
+	
+	sf.createDriver();
+	sf.inGistWulan();
+	}
+}
